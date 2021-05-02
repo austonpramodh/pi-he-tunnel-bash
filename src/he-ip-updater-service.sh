@@ -7,9 +7,18 @@ set -e
 echo "UPDATEURL=$UPDATEURL"
 echo "UPDATE_INTERVAL=$UPDATE_INTERVAL"
 
+last_ip=""
+
 update_ip() {
-  response="$(curl -s $UPDATEURL)"
-  echo "$(date +%d.%m.%Y-%H:%M:%S): $response"
+  local current_ip=$(curl -s https://api.ipify.org)
+
+  if [ "$current_ip" = "$last_ip" ]; then
+    echo "$(date +%d.%m.%Y-%H:%M:%S): IP Unchanged $current_ip"
+  else
+    local response="$(curl -s $UPDATEURL)"
+    echo "$(date +%d.%m.%Y-%H:%M:%S): $response"
+    last_ip="$current_ip"
+  fi
 }
 
 while true; do
