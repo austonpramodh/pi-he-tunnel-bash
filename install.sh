@@ -58,6 +58,11 @@ apt-get install radvd
 systemctl enable radvd.service
 systemctl start radvd.service
 
+echo "Updating sysctl to forward IPv6 Traffic"
+
+echo "net.ipv6.conf.all.forwarding=1" >>./pi-he-tunnel-bash/config.cfg
+sysctl -p /etc/sysctl.conf
+
 echo "HE Tunnel Service installed successfully"
 
 echo "Please reboot"
