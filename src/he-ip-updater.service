@@ -1,0 +1,14 @@
+[Unit]
+Description = He Tunnel IP Updater bash
+After=sysinit.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=no
+RemainAfterExit=yes
+User=root
+ExecStart=/etc/pi-he-tunnel-bash/he-ip-updater-service.sh
+
+[Install]
+WantedBy=multi-user.target
